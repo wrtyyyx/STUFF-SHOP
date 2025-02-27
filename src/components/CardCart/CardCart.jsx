@@ -30,11 +30,6 @@ const CardCart = ({ product, cart, delItem, minItem, plusItem }) => {
                         -
                     </button>
                 )}
-                {cart && (
-                    <button className={'cart_card_button'} onClick={() => plusItem(product)}>
-                        +
-                    </button>
-                )}
                 {product.price} $
                 {cart && (
                     <button className={'cart_card_button'} onClick={() => plusItem(product)}>

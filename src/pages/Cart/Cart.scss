@@ -1,0 +1,79 @@
+.cart {
+  .container {
+    border-radius: 6px;
+    background: #191919;
+    padding: 20px;
+    width: 950px
+  }
+  &_title{
+    font-size: 20px;
+    font-weight: 600;
+    padding-bottom: 20px;
+  }
+
+  &_card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    background: #212123;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+    &_left{
+      display: flex;
+      align-items: center;
+    }
+
+    &_info {
+      padding-left: 15px;
+    }
+
+    &_title {
+      font-size: 13px;
+      font-weight: 600;
+      padding-bottom: 3px;
+      max-width: 300px;
+    }
+
+    &_desc {
+      font-size: 10px;
+      color: #B8B8B8;
+    }
+
+
+    &_price {
+      color: #6C3EB8;
+      font-size: 22px;
+      font-weight: 700;
+      display: flex; gap: 6px;
+    }
+    &_button{
+      background: white;
+      border: none;
+      border-radius: 3px;
+    }
+  }
+  &_total{
+    color: #B8B8B8;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  & span{
+    color: #8c4df1;
+
+  }
+  &_btn{
+    margin-top: 20px;
+    background: #6C3EB8;
+    border: none;
+    color: #FFFFFF;
+    padding: 12px 14px;
+    border-radius: 6px;
+  }
+}

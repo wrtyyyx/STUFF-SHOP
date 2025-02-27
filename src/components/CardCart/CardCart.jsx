@@ -26,14 +26,19 @@ const CardCart = ({ product, cart, delItem, minItem, plusItem }) => {
             <div className="cart_card_count">Count: {product.quantity}</div>
             <div className="cart_card_price">
                 {cart && (
+                    <button className={'cart_card_button'} onClick={() => minItem(product)}>
+                        -
+                    </button>
+                )}
+                {cart && (
                     <button className={'cart_card_button'} onClick={() => plusItem(product)}>
                         +
                     </button>
                 )}
                 {product.price} $
                 {cart && (
-                    <button className={'cart_card_button'} onClick={() => minItem(product)}>
-                        -
+                    <button className={'cart_card_button'} onClick={() => plusItem(product)}>
+                        +
                     </button>
                 )}
             </div>

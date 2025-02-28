@@ -13,6 +13,11 @@
         color: #8c4df1;
         cursor: pointer;
     }
+    &_delete{
+        position: absolute;
+        right: 25px;
+        top: 17px;
+    }
     &_title {
         text-align: center;
         font-weight: 700;

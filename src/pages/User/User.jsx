@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './User.scss';
 import Btn from '../../components/Button/Btn.jsx';
@@ -9,25 +8,22 @@ import { resetStore, setOrders } from '../../store/slice/storeSlice.js';
 const User = () => {
     const userData = useSelector((state) => state.user);
     const userOrders = useSelector((state) => state.store.orders);
-    const [history, setHistory] = useState([]);
+    console.log(userData);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const fullName = `${userData.firstName} ${userData.lastName}`;
+    const history = userOrders.filter((order) => order.user === fullName);
     const deleteUser = () => {
         dispatch(resetUser());
-        dispatch(resetStore());
+        dispatch(resetStore(userData));
         navigate('/');
     };
 
     const deleteHistory = () => {
-        const filterOrders = userOrders.filter((item) => item.user !== userData.firstName + ' ' + userData.lastName);
-        setHistory(filterOrders.filter((item) => item.user === userData.firstName + ' ' + userData.lastName));
-        dispatch(setOrders(filterOrders));
+        dispatch(setOrders(userOrders.filter((order) => order.user !== fullName)));
     };
-    useEffect(() => {
-        const filterOrders = userOrders.filter((item) => item.user === userData.firstName + ' ' + userData.lastName);
-        setHistory(filterOrders);
-    }, [userOrders]);
+
     return (
         <section className={'user'}>
             <div className="container user_container">

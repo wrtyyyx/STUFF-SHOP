@@ -38,6 +38,7 @@ export default function DeliveryStepper() {
                 address: address,
                 payBy: paymentType,
                 user: user.firstName + ' ' + user.lastName,
+                email: user.email,
             })
         );
         setActiveStep(2);

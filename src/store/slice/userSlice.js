@@ -22,6 +22,7 @@ const userSlice = createSlice({
             state.phone = '';
             state.address = '';
             state.img = '';
+
             sessionStorage.removeItem('userData');
         },
     },

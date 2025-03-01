@@ -41,6 +41,7 @@ const storeSlice = createSlice({
                 address: action.payload.address,
                 payBy: action.payload.payBy,
                 user: action.payload.user,
+                email: action.payload.email,
             };
             state.orders.push(newOrder);
             state.products = [];
@@ -52,9 +53,10 @@ const storeSlice = createSlice({
             state.orders = action.payload;
             saveOrders(state.orders);
         },
-        resetStore: (state) => {
+        resetStore: (state, action) => {
             state.products = [];
-            localStorage.clear();
+            state.orders = state.orders.filter((order) => order.email !== action.payload.email);
+            saveOrders(state.orders);
         },
 
         deleteItem: (state, action) => {

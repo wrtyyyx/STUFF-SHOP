@@ -88,7 +88,7 @@ const SignIn = () => {
                                             placeholder="Enter phone number"
                                             className={'react-international-phone'}
                                             value={watch('phone')}
-                                            hideDropdown
+                                            inputProps={{}}
                                             onChange={(value) => setValue('phone', value, { shouldValidate: true })}
                                         />
                                         {errors.phone && <p className="sign_error">{errors.phone.message}</p>}

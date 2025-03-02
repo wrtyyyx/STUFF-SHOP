@@ -1,4 +1,10 @@
 .user {
+    .container {
+        border-radius: 6px;
+        background: var(--bg-container);
+        padding: 20px;
+        width: 950px;
+    }
     &_info {
         display: flex;
         flex-direction: column;

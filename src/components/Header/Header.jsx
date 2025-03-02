@@ -50,7 +50,7 @@ const Header = () => {
                         <img src={logo_1} alt={'logo'} />
                     </Link>
 
-                    <Link to={'/signIn'} className="header_user">
+                    <Link to={'/user'} className="header_user">
                         <img src={userLogo} alt="userLogo" />
                         <div className={'header_user_name'}>
                             {user.firstName ? `${user.firstName} ${user.lastName}` : <p>Guest</p>}

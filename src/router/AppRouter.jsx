@@ -8,6 +8,8 @@ import SignIn from '../pages/SingIn/SignIn.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import Delivery from '../pages/Delivery/Delivery.jsx';
 import UserHistory from '../pages/User/UserHistory.jsx';
+import UserRouter from './UserRouter.jsx';
+import User from '../pages/User/User.jsx';
 
 const AppRouter = () => {
     return (
@@ -26,9 +28,17 @@ const AppRouter = () => {
                         }
                     />
                     <Route path={'/cart/delivery'} element={<Delivery />} />
-                    <Route path={'/signIn/:id'} element={<UserHistory />} />
+                    <Route path={'/user/:id'} element={<UserHistory />} />
+                    <Route path="/user" element={
+                    <UserRouter>
+                        <User/>
+                    </UserRouter>
+                } />
+                    
                 </Route>
-                <Route path="/signIn" element={<SignIn />} />
+                <Route path={'/signIn'} element={<SignIn />} />
+
+                
             </Routes>
         </Router>
     );

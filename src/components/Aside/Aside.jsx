@@ -18,7 +18,7 @@ const Aside = () => {
                     {categories.map((item) => (
                         <Link
                             to={`/${item.key}`}
-                            className={classNames('aside_category', { active: location.pathname.includes(item.key) })}
+                            className={classNames('aside_category', { active: location.pathname === `/${item.key}` })}
                             key={item.key}
                         >
                             {item.name}

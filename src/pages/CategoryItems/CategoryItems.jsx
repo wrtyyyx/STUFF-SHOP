@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetItemsByCatQuery } from '../../store/api/itemsApi.js';
 import { Box, Slider } from '@mui/material';
 import './CategoryItems.scss';
 import CardCatal from '../../components/CardCatal/CardCatal.jsx';
 
 const CategoryItems = () => {
+    const navigate = useNavigate();
     const { category } = useParams();
     const { data, isLoading, error } = useGetItemsByCatQuery(category);
     const [price, setPrice] = useState([0, 0]);
@@ -13,7 +14,7 @@ const CategoryItems = () => {
     const [filteredProducts, setFilteredProducts] = useState([]);
 
     useEffect(() => {
-        if (data) {
+        if (data?.length) {
             const maxPrice = Math.max(...data.map((item) => item.price));
             setPrice([0, maxPrice]);
             setFilteredProducts(data);
@@ -31,16 +32,14 @@ const CategoryItems = () => {
         setFilteredProducts(filtered);
     }, [price, search, data]);
 
-    if (isLoading) {
-        return <p>Loading...</p>;
-    }
-    if (error) {
-        alert('Error!');
-    }
+    useEffect(() => {
+        if (!isLoading && (!data || data.length === 0 || error)) {
+            navigate('/404', { replace: true });
+        }
+    }, [isLoading, data, error, navigate]);
 
-    if (!data || data.length === 0) {
-        return <p>No products found</p>;
-    }
+    if (isLoading) return <p>Loading...</p>;
+    if (!data?.length) return null;
 
     const handleReset = (e) => {
         e.preventDefault();
@@ -57,9 +56,9 @@ const CategoryItems = () => {
     };
 
     return (
-        <section className={'cat'}>
+        <section className="cat">
             <div className="container cat_container">
-                <h1 className={'cat_title'}>{category}</h1>
+                <h1 className="cat_title">{category}</h1>
                 <form className="cat_form">
                     <input
                         className="cat_form_input"
@@ -83,7 +82,7 @@ const CategoryItems = () => {
                         Reset
                     </button>
                 </form>
-                <div className={'cat_items'}>
+                <div className="cat_items">
                     {filteredProducts.map((item) => (
                         <CardCatal key={item.id} cat={category} data={item} />
                     ))}

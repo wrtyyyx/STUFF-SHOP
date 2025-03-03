@@ -1,18 +1,31 @@
-import * as React from 'react';
-import { Box, Stepper, Step, StepLabel, Button, Typography, TextField, MenuItem } from '@mui/material';
+import {
+    Box,
+    Stepper,
+    Step,
+    StepLabel,
+    Button,
+    Typography,
+    TextField,
+    MenuItem,
+    Select,
+    InputLabel,
+    FormControl,
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import OrderCard from '../OrderCard/OrderCard.jsx';
 import { useNavigate } from 'react-router-dom';
 import { addOrder } from '../../store/slice/storeSlice.js';
+import './DeliveryStepper.scss';
+import { useState } from 'react';
 
 const steps = ['Choose delivery property', 'Confirm order'];
 
 export default function DeliveryStepper() {
     const user = useSelector((state) => state.user);
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [skipped, setSkipped] = React.useState(new Set());
-    const [address, setAddress] = React.useState(user.address ?? '');
-    const [paymentType, setPaymentType] = React.useState('');
+    const [activeStep, setActiveStep] = useState(0);
+    const [skipped, setSkipped] = useState(new Set());
+    const [address, setAddress] = useState(user.address ?? '');
+    const [paymentType, setPaymentType] = useState('');
     const dispatch = useDispatch();
     const store = useSelector((state) => state.store.products);
     const navigate = useNavigate();
@@ -49,21 +62,13 @@ export default function DeliveryStepper() {
             <Stepper activeStep={activeStep} sx={{ '& .MuiStepIcon-root': { color: 'white' } }}>
                 {steps.map((label, index) => (
                     <Step key={label} completed={isStepSkipped(index) ? false : undefined}>
-                        <StepLabel
-                            sx={{
-                                '& .MuiStepLabel-label': { color: '#6c3eb8' },
-                                '& .Mui-active': { color: '#6c3eb8' },
-                                '& .Mui-completed': { color: '#6c3eb8' },
-                            }}
-                        >
-                            {label}
-                        </StepLabel>
+                        <StepLabel className={'stepper'}>{label}</StepLabel>
                     </Step>
                 ))}
             </Stepper>
 
             {activeStep === steps.length ? (
-                <React.Fragment>
+                <div>
                     <Typography sx={{ mt: 2, mb: 1, color: 'white' }}>
                         Thank you for your order, see you later alligator!
                     </Typography>
@@ -73,9 +78,9 @@ export default function DeliveryStepper() {
                             Go to shop
                         </Button>
                     </Box>
-                </React.Fragment>
+                </div>
             ) : (
-                <React.Fragment>
+                <div>
                     <Typography sx={{ mt: 2, mb: 1, color: 'white' }}>Step {activeStep + 1}</Typography>
                     {activeStep === 0 && (
                         <Box sx={{ mt: 2 }}>
@@ -93,22 +98,25 @@ export default function DeliveryStepper() {
                                     fieldset: { borderColor: 'white' },
                                 }}
                             />
-                            <TextField
-                                select
-                                required
-                                fullWidth
-                                label="Payment Type"
-                                value={paymentType}
-                                onChange={(e) => setPaymentType(e.target.value)}
-                                sx={{
-                                    input: { color: '#fff' },
-                                    label: { color: '#fff' },
-                                    fieldset: { borderColor: '#fff' },
-                                }}
-                            >
-                                <MenuItem value="card">Credit Card</MenuItem>
-                                <MenuItem value="cash">Cash on Delivery</MenuItem>
-                            </TextField>
+                            <FormControl fullWidth sx={{ mb: 2 }}>
+                                <InputLabel sx={{ color: 'white' }}>Payment Method</InputLabel>
+                                <Select
+                                    required
+                                    value={paymentType}
+                                    onChange={(e) => setPaymentType(e.target.value)}
+                                    label="Payment Method"
+                                    sx={{
+                                        color: 'white',
+                                        '.MuiOutlinedInput-notchedOutline': { borderColor: 'white' },
+                                        '.MuiSvgIcon-root': { color: 'white' },
+                                        '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'white' },
+                                        '.MuiInputBase-input': { color: 'white' },
+                                    }}
+                                >
+                                    <MenuItem value="card">Credit Card</MenuItem>
+                                    <MenuItem value="cash">Cash on Delivery</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Box>
                     )}
                     {activeStep === 1 && (
@@ -149,7 +157,7 @@ export default function DeliveryStepper() {
                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                         </Button>
                     </Box>
-                </React.Fragment>
+                </div>
             )}
         </Box>
     );

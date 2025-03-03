@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../pages/Home/Home.jsx';
 import Cart from '../pages/Cart/Cart.jsx';
 import CategoryItems from '../pages/CategoryItems/CategoryItems.jsx';
@@ -10,6 +10,7 @@ import Delivery from '../pages/Delivery/Delivery.jsx';
 import UserHistory from '../pages/User/UserHistory.jsx';
 import UserRouter from './UserRouter.jsx';
 import User from '../pages/User/User.jsx';
+import NotFound from '../pages/NotFound/NotFound.jsx';
 
 const AppRouter = () => {
     return (
@@ -27,18 +28,21 @@ const AppRouter = () => {
                             </ProtectedRoute>
                         }
                     />
-                    <Route path={'/cart/delivery'} element={<Delivery />} />
-                    <Route path={'/user/:id'} element={<UserHistory />} />
-                    <Route path="/user" element={
-                    <UserRouter>
-                        <User/>
-                    </UserRouter>
-                } />
-                    
-                </Route>
-                <Route path={'/signIn'} element={<SignIn />} />
+                    <Route path="/cart/delivery" element={<Delivery />} />
+                    <Route path="/user/:id" element={<UserHistory />} />
+                    <Route
+                        path="/user"
+                        element={
+                            <UserRouter>
+                                <User />
+                            </UserRouter>
+                        }
+                    />
 
-                
+                    <Route path="*" element={<Navigate to="/404" />} />
+                    <Route path="/404" element={<NotFound />} />
+                </Route>
+                <Route path="/signIn" element={<SignIn />} />
             </Routes>
         </Router>
     );

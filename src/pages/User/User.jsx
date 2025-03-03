@@ -4,8 +4,6 @@ import Btn from '../../components/Button/Btn.jsx';
 import { useNavigate } from 'react-router-dom';
 import { resetUser } from '../../store/slice/userSlice.js';
 import { resetStore, setOrders } from '../../store/slice/storeSlice.js';
-import Header from '../../components/Header/Header.jsx';
-import { div } from 'framer-motion/client';
 
 const User = () => {
     const userData = useSelector((state) => state.user);
@@ -41,7 +39,7 @@ const User = () => {
                     <Btn text={'Delete user'} func={deleteUser} />
                 </div>
             </div>
-            <div className={'user_history container'}>
+            <div className={'user_history user_history_container'}>
                 <div className="user_history_title">History of orders</div>
                 {history.length ? (
                     <div>
